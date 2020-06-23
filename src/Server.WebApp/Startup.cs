@@ -1,5 +1,5 @@
 using System.Reflection;
-
+using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.GraphiQL;
@@ -45,15 +45,15 @@ namespace Server.WebApp
                 app.UseDeveloperExceptionPage();
             }
 
-            // app.UseRouting();
+            app.UseRouting();
 
-            // app.UseEndpoints(endpoints =>
-            // {
-            //     endpoints.MapGet("/", async context =>
-            //     {
-            //         await context.Response.WriteAsync("Hello World!");
-            //     });
-            // });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", async context =>
+                {
+                    await Task.Run(() => context.Response.Redirect("/ui/graphql", permanent: true));
+                });
+            });
 
             app.UseWebSockets();
             app.UseGraphQLWebSockets<OrdersSchema>();
