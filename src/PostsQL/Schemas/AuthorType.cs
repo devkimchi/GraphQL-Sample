@@ -1,12 +1,12 @@
 using GraphQL.Types;
 
-using Orders.Models;
+using PostsQL.Models;
 
-namespace Orders.Schema
+namespace PostsQL.Schemas
 {
-    public class CustomerType : ObjectGraphType<Customer>
+    public class AuthorType : ObjectGraphType<Author>
     {
-        public CustomerType()
+        public AuthorType()
         {
             this.Field(p => p.Id);
             this.Field(p => p.Name);

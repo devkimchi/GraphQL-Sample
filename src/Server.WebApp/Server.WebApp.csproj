@@ -5,16 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Orders\Orders.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="GraphQL-Parser" Version="4.1.2" />
     <PackageReference Include="GraphQL.Server.Core" Version="3.4.0" />
     <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.4.0" />
     <PackageReference Include="GraphQL.Server.Transports.WebSockets" Version="3.4.0" />
     <PackageReference Include="GraphQL.Server.Ui.GraphiQL" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PostsQL\PostsQL.csproj" />
   </ItemGroup>
 
 </Project>

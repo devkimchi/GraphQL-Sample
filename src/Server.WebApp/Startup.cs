@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Threading.Tasks;
+
 using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.GraphiQL;
@@ -10,8 +11,8 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using Orders.Schema;
-using Orders.Services;
+using PostsQL.Schemas;
+using PostsQL.Services;
 
 namespace Server.WebApp
 {
@@ -23,18 +24,18 @@ namespace Server.WebApp
         {
             services.Configure<KestrelServerOptions>(o => o.AllowSynchronousIO = true);
 
-            services.AddSingleton<IOrderService, OrderService>();
-            services.AddSingleton<ICustomerService, CustomerService>();
-            services.AddSingleton<OrderType>();
-            services.AddSingleton<CustomerType>();
-            services.AddSingleton<OrderStatusesEnum>();
-            services.AddSingleton<OrdersQuery>();
-            services.AddSingleton<OrdersSchema>();
+            services.AddSingleton<IAuthorService, AuthorService>();
+            services.AddSingleton<IPostService, PostService>();
+            services.AddSingleton<AuthorType>();
+            services.AddSingleton<PostType>();
+            services.AddSingleton<PostStatusEnum>();
+            services.AddSingleton<PostsQuery>();
+            services.AddSingleton<PostsSchema>();
             services.AddSingleton<IDependencyResolver>(p => new FuncDependencyResolver(type => p.GetRequiredService(type)));
 
             services.AddGraphQL()
                     .AddWebSockets()
-                    .AddGraphTypes(Assembly.GetAssembly(typeof(OrdersSchema)));
+                    .AddGraphTypes(Assembly.GetAssembly(typeof(PostsSchema)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,8 +57,8 @@ namespace Server.WebApp
             });
 
             app.UseWebSockets();
-            app.UseGraphQLWebSockets<OrdersSchema>();
-            app.UseGraphQL<OrdersSchema>();
+            app.UseGraphQLWebSockets<PostsSchema>();
+            app.UseGraphQL<PostsSchema>();
             app.UseGraphiQLServer(new GraphiQLOptions() { GraphiQLPath = "/ui/graphql", GraphQLEndPoint = "/graphql" });
         }
     }

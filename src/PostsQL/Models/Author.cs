@@ -1,8 +1,8 @@
-namespace Orders.Models
+namespace PostsQL.Models
 {
-    public class Customer
+    public class Author
     {
-        public Customer(int id, string name)
+        public Author(int id, string name)
         {
             this.Id = id;
             this.Name = name;
